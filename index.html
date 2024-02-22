@@ -20,11 +20,24 @@
       margin-bottom: 16px;
       box-sizing: border-box;
     }
+    #confirmationMessage {
+      display: none;
+      padding: 10px;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 5px;
+      color: #721c24;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
 
 <h1>Survey Form</h1>
+
+<div id="confirmationMessage">
+  <p>You have unsaved changes. Please submit the form or save your data before leaving.</p>
+</div>
 
 <form id="surveyForm">
   <label for="name">What is your name?</label>
@@ -45,9 +58,8 @@
 
   window.addEventListener('beforeunload', function (e) {
     if (!formSubmitted) {
-      var confirmationMessage = 'You have unsaved changes. Are you sure you want to leave?';
-      (e || window.event).returnValue = confirmationMessage;
-      return confirmationMessage;
+      document.getElementById('confirmationMessage').style.display = 'block';
+      e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
     }
   });
 </script>
