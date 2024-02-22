@@ -39,7 +39,7 @@
   <p>You have unsaved changes. Please submit the form or save your data before leaving.</p>
 </div>
 
-<form id="surveyForm" onsubmit="return submitForm()">
+<form id="surveyForm">
   <label for="name">What is your name?</label>
   <input type="text" id="name" name="name" required>
 
@@ -52,18 +52,16 @@
 <script>
   var formSubmitted = false;
 
-  function submitForm() {
+  document.getElementById('surveyForm').addEventListener('submit', function() {
     formSubmitted = true;
-    return true; // Allow form submission
-  }
+  });
 
-  function displayConfirmation() {
+  window.addEventListener('beforeunload', function (e) {
     if (!formSubmitted) {
       document.getElementById('confirmationMessage').style.display = 'block';
+      e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
     }
-  }
-
-  window.addEventListener('beforeunload', displayConfirmation);
+  });
 </script>
 
 </body>
